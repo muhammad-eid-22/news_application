@@ -1,25 +1,34 @@
 import 'package:bounceable/bounceable.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/extension/extension.context.dart';
-import 'package:news_app/features/models/source_response_model.dart';
+import 'package:news_app/core/gen/assets.gen.dart';
+import 'package:news_app/features/home/model/top_headlines_response.dart';
+import 'package:news_app/features/home/ArticleDetailView/article_detail_view.dart';
 
 class NewsCard extends StatelessWidget {
-  final List<Article> article;
-  final int index;
+  final Article item;
 
-  const NewsCard({super.key, required this.article, required this.index});
+  const NewsCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    final item = article[index];
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(context.wd(36)),
       child: Bounceable(
+        onTap: () {
+          // Handle article tap, e.g., navigate to detail page
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ArticleDetailView(article: item),
+            ),
+          );
+        },
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(item.urlToImage ),
+              image: NetworkImage(item.urlToImage),
               fit: BoxFit.cover,
             ),
           ),
@@ -58,7 +67,7 @@ class NewsCard extends StatelessWidget {
                     ),
                     SizedBox(height: context.hg(6)),
                     Text(
-                      item.title ,
+                      item.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
