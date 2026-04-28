@@ -1,14 +1,10 @@
-import 'package:bounceable/bounceable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/extension/extension.context.dart';
-import 'package:news_app/core/route/app_router.dart';
-import 'package:news_app/core/route/app_routes.dart';
-import 'package:news_app/features/layout/home/cubit/home_cubit.dart';
+import 'package:news_app/core/cubit/news_cubit.dart';
 import 'package:news_app/features/layout/home/view/widgets/custom_slider.dart';
 import 'package:news_app/core/widgets/article_item_widget.dart';
 import 'package:news_app/features/layout/home/view/widgets/title_header.dart';
-import 'package:news_app/features/search/view/search_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -17,7 +13,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        final homeCubit = HomeCubit();
+        final homeCubit = NewsCubit();
         homeCubit.getBreakingNews();
         homeCubit.getRecommendedNews();
         return homeCubit;
@@ -25,13 +21,13 @@ class HomeView extends StatelessWidget {
       child: Scaffold(
         body: Builder(
           builder: (context) {
-            final homeCubit = BlocProvider.of<HomeCubit>(context);
+            final homeCubit = BlocProvider.of<NewsCubit>(context);
             return SingleChildScrollView(
               child: Column(
                 children: [
                   TitleHeader(title: "Breaking News", onTap: () {}),
                   SizedBox(height: context.hg(12)),
-                  BlocBuilder<HomeCubit, HomeState>(
+                  BlocBuilder<NewsCubit, NewsState>(
                     bloc: homeCubit,
                     buildWhen: (previous, current) =>
                         current is TopHeadlinesLoaded ||
@@ -53,7 +49,7 @@ class HomeView extends StatelessWidget {
                   ),
                   SizedBox(height: context.hg(24)),
                   TitleHeader(title: "Recommended News", onTap: () {}),
-                  BlocBuilder<HomeCubit, HomeState>(
+                  BlocBuilder<NewsCubit, NewsState>(
                     bloc: homeCubit,
                     buildWhen: (previous, current) =>
                         current is RecommendedNewsLoaded ||

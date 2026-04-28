@@ -99,7 +99,10 @@ class _SearchPageState extends State<SearchPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final article = articles[index];
-                        return ArticleItemWidget(article: article);
+                        return ArticleItemWidget(
+                          article: article,
+                          isSearch: true,
+                        );
                       },
                     );
                   } else if (state is SearchError) {

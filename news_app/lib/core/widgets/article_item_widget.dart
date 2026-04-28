@@ -6,7 +6,12 @@ import 'package:news_app/core/route/app_routes.dart';
 
 class ArticleItemWidget extends StatelessWidget {
   final Article article;
-  const ArticleItemWidget({super.key, required this.article});
+  final bool isSearch;
+  const ArticleItemWidget({
+    super.key,
+    required this.article,
+    this.isSearch = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +28,8 @@ class ArticleItemWidget extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 110,
-              height: 110,
+              width: isSearch ? 100 : 130,
+              height: isSearch ? 100 : 130,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
@@ -37,7 +42,7 @@ class ArticleItemWidget extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: context.hg(8),
+                spacing: context.hg(12),
                 children: [
                   Text(
                     article.source?.name ?? "",
@@ -49,7 +54,7 @@ class ArticleItemWidget extends StatelessWidget {
                   Text(
                     article.title ?? "",
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
+                    maxLines: isSearch ? 2 : 3,
                     style: TextStyle(
                       fontSize: context.hg(16),
                       fontWeight: FontWeight.bold,
