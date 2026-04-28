@@ -19,6 +19,7 @@ class _LayoutViewState extends State<LayoutView> {
   int currentIndex = 0;
 
   Widget build(BuildContext context) {
+    
     final List<Widget> screens = [
       const HomeView(),
       const CategoryView(),
@@ -27,6 +28,7 @@ class _LayoutViewState extends State<LayoutView> {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
+        elevation: 0,
         leading: Icon(Icons.menu),
         actions: [
           Bounceable(
