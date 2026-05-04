@@ -23,6 +23,8 @@ dependencies:
   bounceable: ^1.0.0
   cached_network_image: ^3.4.1
   flutter_svg: ^2.2.4
+  webview_flutter: ^4.13.1
+  animated_toggle_switch: ^0.8.7
 
 dev_dependencies:
   build_runner: ^2.12.0

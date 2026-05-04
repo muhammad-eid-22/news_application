@@ -15,27 +15,25 @@ class NewsCategoryScreen extends StatelessWidget {
         homeCubit.getNewsByCategory(category, 20);
         return homeCubit;
       },
-      child: Expanded(
-        child: BlocBuilder<NewsCubit, NewsState>(
-          buildWhen: (previous, current) =>
-              current is TopHeadlinesLoaded ||
-              current is TopHeadlinesError ||
-              current is TopHeadlinesLoading,
-          builder: (context, state) {
-            if (state is TopHeadlinesLoaded) {
-              final articles = state.articlesResponse;
-              return ListView.builder(
-                itemCount: articles!.length,
-                itemBuilder: (context, index) =>
-                    ArticleItemWidget(article: articles[index]),
-              );
-            }
-            if (state is TopHeadlinesError) {
-              return Text("Error: ${state.message}");
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ),
+      child: BlocBuilder<NewsCubit, NewsState>(
+        buildWhen: (previous, current) =>
+            current is TopHeadlinesLoaded ||
+            current is TopHeadlinesError ||
+            current is TopHeadlinesLoading,
+        builder: (context, state) {
+          if (state is TopHeadlinesLoaded) {
+            final articles = state.articlesResponse;
+            return ListView.builder(
+              itemCount: articles!.length,
+              itemBuilder: (context, index) =>
+                  ArticleItemWidget(article: articles[index]),
+            );
+          }
+          if (state is TopHeadlinesError) {
+            return Text("Error: ${state.message}");
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }

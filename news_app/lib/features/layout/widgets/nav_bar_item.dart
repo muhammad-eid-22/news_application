@@ -1,7 +1,8 @@
-import 'package:bounceable/bounceable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/extension/extension.context.dart';
 import 'package:news_app/core/theme/app_colors.dart';
+import 'package:news_app/core/theme/cubit/theme_cubit.dart';
 
 class CustomBottomNavBaritem extends StatelessWidget {
   final String lable;
@@ -18,6 +19,8 @@ class CustomBottomNavBaritem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.watch<ThemeCubit>().state == ThemeMode.dark;
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -25,7 +28,11 @@ class CustomBottomNavBaritem extends StatelessWidget {
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
-          color: isSelected ? AppColors.primaryColor : Colors.transparent,
+          color: isSelected
+              ? isDark
+                    ? AppColors.primaryColor
+                    : AppColors.primaryColorLight
+              : Colors.transparent,
         ),
         child: Row(
           spacing: context.wd(10),

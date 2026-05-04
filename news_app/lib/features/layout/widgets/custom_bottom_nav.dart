@@ -1,10 +1,10 @@
 import 'dart:ui';
-
-import 'package:bounceable/bounceable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/extension/extension.context.dart';
 import 'package:news_app/core/gen/assets.gen.dart';
 import 'package:news_app/core/theme/app_colors.dart';
+import 'package:news_app/core/theme/cubit/theme_cubit.dart';
 import 'package:news_app/features/layout/widgets/nav_bar_item.dart';
 
 class CustomBottomNav extends StatelessWidget {
@@ -18,6 +18,7 @@ class CustomBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.watch<ThemeCubit>().state == ThemeMode.dark;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: context.wd(16),
@@ -32,7 +33,7 @@ class CustomBottomNav extends StatelessWidget {
             alignment: Alignment.center,
             height: 60,
             decoration: BoxDecoration(
-              color: Colors.black12,
+              color: isDark ? Colors.white12 : Colors.black12,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: Colors.white54, width: 1.5),
             ),
@@ -44,7 +45,12 @@ class CustomBottomNav extends StatelessWidget {
                   lable: "Home",
                   icon: currentIndex == 0
                       ? Assets.icons.homeActive.svg()
-                      : Assets.icons.home.svg(),
+                      : Assets.icons.home.svg(
+                          colorFilter: ColorFilter.mode(
+                            AppColors.primaryColor,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                   onTap: () => onTap(0),
                   isSelected: currentIndex == 0,
                 ),
@@ -52,7 +58,12 @@ class CustomBottomNav extends StatelessWidget {
                   lable: "Category",
                   icon: currentIndex == 1
                       ? Assets.icons.categoryActive.svg()
-                      : Assets.icons.category.svg(),
+                      : Assets.icons.category.svg(
+                          colorFilter: ColorFilter.mode(
+                            AppColors.primaryColor,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                   onTap: () => onTap(1),
                   isSelected: currentIndex == 1,
                 ),
@@ -60,7 +71,12 @@ class CustomBottomNav extends StatelessWidget {
                   lable: "Bookmark",
                   icon: currentIndex == 2
                       ? Assets.icons.bookmarkActive.svg()
-                      : Assets.icons.bookmark.svg(),
+                      : Assets.icons.bookmark.svg(
+                          colorFilter: ColorFilter.mode(
+                            AppColors.primaryColor,
+                            BlendMode.srcIn,
+                          ),
+                        ),
                   onTap: () => onTap(2),
                   isSelected: currentIndex == 2,
                 ),

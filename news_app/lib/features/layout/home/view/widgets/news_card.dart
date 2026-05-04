@@ -1,9 +1,9 @@
 import 'package:bounceable/bounceable.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/extension/extension.context.dart';
+import 'package:news_app/core/gen/assets.gen.dart';
 import 'package:news_app/core/models/news_response.dart';
 import 'package:news_app/core/route/app_routes.dart';
-import 'package:news_app/features/layout/home/view/ArticleDetailView/article_detail_view.dart';
 
 class NewsCard extends StatelessWidget {
   final Article item;
@@ -12,7 +12,6 @@ class NewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return ClipRRect(
       borderRadius: BorderRadius.circular(context.wd(36)),
       child: Bounceable(
@@ -27,7 +26,9 @@ class NewsCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(item.urlToImage),
+              image: item.urlToImage != null && item.urlToImage!.isNotEmpty
+                  ? NetworkImage(item.urlToImage!)
+                  : Assets.images.elementorPlaceholderImage.provider(),
               fit: BoxFit.cover,
             ),
           ),
@@ -66,7 +67,7 @@ class NewsCard extends StatelessWidget {
                     ),
                     SizedBox(height: context.hg(6)),
                     Text(
-                      item.title,
+                      item.title!,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(

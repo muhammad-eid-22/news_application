@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/extension/extension.context.dart';
 import 'package:news_app/core/theme/app_colors.dart';
+import 'package:news_app/core/theme/cubit/theme_cubit.dart';
 import 'package:news_app/features/layout/category/news_category_screen.dart';
 
 class CategoryView extends StatefulWidget {
@@ -22,6 +24,7 @@ class _CategoryViewState extends State<CategoryView> {
   ];
   @override
   Widget build(BuildContext context) {
+    final isDark = context.watch<ThemeCubit>().state == ThemeMode.dark;
     return DefaultTabController(
       length: category.length,
       child: Column(
@@ -49,11 +52,12 @@ class _CategoryViewState extends State<CategoryView> {
           SizedBox(height: context.hg(24)),
           TabBar(
             tabAlignment: TabAlignment.start,
-
             dividerColor: Colors.transparent,
             indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              color: AppColors.primaryColor,
+              color: isDark
+                  ? AppColors.primaryColor
+                  : AppColors.primaryColorLight,
             ),
             unselectedLabelColor: AppColors.darkGrey,
             indicatorSize: TabBarIndicatorSize.tab,
