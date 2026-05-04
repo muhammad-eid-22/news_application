@@ -1,6 +1,7 @@
 import 'package:bounceable/bounceable.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/extension/extension.context.dart';
+import 'package:news_app/core/gen/assets.gen.dart';
 import 'package:news_app/core/models/news_response.dart';
 import 'package:news_app/core/route/app_routes.dart';
 
@@ -33,7 +34,12 @@ class ArticleItemWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 image: DecorationImage(
-                  image: NetworkImage(article.urlToImage ?? ""),
+                  image:
+                      article.urlToImage != null &&
+                          article.urlToImage!.isNotEmpty
+                      ? NetworkImage(article.urlToImage!)
+                      : AssetImage(Assets.images.elementorPlaceholderImage.path)
+                            as ImageProvider,
                   fit: BoxFit.cover,
                 ),
               ),

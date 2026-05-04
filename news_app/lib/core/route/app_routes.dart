@@ -5,4 +5,5 @@ class AppRoutes {
   static const String searchPage = '/search';
   static const String categoryView = '/category';
   static const String bookmarkView = '/bookmark';
+  static const String webView = '/webview';
 }

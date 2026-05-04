@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/core/models/news_response.dart';
 import 'package:news_app/core/models/top_headlines_request.dart';
@@ -10,6 +9,8 @@ class NewsCubit extends Cubit<NewsState> {
   final homeServices = HomeServices();
 
   NewsCubit() : super(HomeCubitInitial());
+  
+
   Future<void> getBreakingNews() async {
     emit(TopHeadlinesLoading());
     try {
